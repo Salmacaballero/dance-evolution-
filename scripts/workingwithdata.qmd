@@ -1,0 +1,77 @@
+### **Introduction**
+
+---
+title: "workingwithdata"
+format: html
+---
+
+```{r}
+library(tidyverse)
+library(haven)
+library(descr)
+```
+
+### ✅WORKING WITH DATA
+
+```{r}
+library(haven)
+library(labelled)
+```
+
+```{r}
+file_path<-file.path("..","data","data.sav")df<-read_sav(file_path)
+```
+
+```{r}
+file_path<-file.path("..","data","data.sav") 
+df<-read_sav(file_path)
+head(df)
+```
+
+```{r}
+codebook <- look_for(df)
+```
+
+```{r}
+colnames(df)
+```
+
+```{r}
+summary(df)
+```
+
+```{r}
+glimpse(df)
+```
+
+```{r}
+freq(df)
+```
+
+### Frequency tables
+
+### HISPANIC
+
+```{r}
+freq(as.ordered(df$HISPANIC), plot=FALSE)
+```
+
+### WHITE
+
+```{r}
+freq(as.ordered(df$WHITE), plot=FALSE)
+```
+
+### BLACK
+
+```{r}
+freq(as.ordered(df$BLACK) , plot=FALSE)
+```
+
+### **Ethnic Origin** 
+
+```{r}
+freq(as.ordered(df$A5AETHN1) , plot=FALSE)
+```
+
+### **✅Data Management**
