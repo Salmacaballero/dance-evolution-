@@ -1,77 +1,115 @@
-### **Introduction**
+### Introduction
 
----
-title: "workingwithdata"
-format: html
----
+### End of career challenges
 
 ```{r}
-library(tidyverse)
-library(haven)
-library(descr)
+freq(as.ordered(df$CDCHPHYS), plot=FALSE)
 ```
 
-### ✅WORKING WITH DATA
+### Stopped dancing for new career
 
 ```{r}
-library(haven)
-library(labelled)
+freq(as.ordered(df$DSNEWCRR) , plot=FALSE)
 ```
 
-```{r}
-file_path<-file.path("..","data","data.sav")df<-read_sav(file_path)
-```
-
-```{r}
-file_path<-file.path("..","data","data.sav") 
-df<-read_sav(file_path)
-head(df)
-```
-
-```{r}
-codebook <- look_for(df)
-```
-
-```{r}
-colnames(df)
-```
-
-```{r}
-summary(df)
-```
-
-```{r}
-glimpse(df)
-```
-
-```{r}
-freq(df)
-```
-
-### Frequency tables
-
-### HISPANIC
-
-```{r}
-freq(as.ordered(df$HISPANIC), plot=FALSE)
-```
-
-### WHITE
-
-```{r}
-freq(as.ordered(df$WHITE), plot=FALSE)
-```
-
-### BLACK
-
-```{r}
-freq(as.ordered(df$BLACK) , plot=FALSE)
-```
-
-### **Ethnic Origin** 
+### **Ethnic Origin**
 
 ```{r}
 freq(as.ordered(df$A5AETHN1) , plot=FALSE)
 ```
 
-### **✅Data Management**
+### ✅Univariate Data Visualizations
+
+### Figure 1 Bar Graph
+
+```{r}
+#Univariate Graph (categorical variable)
+df %>%
+  ggplot(aes(x = DSNEWCRR)) + geom_bar()+
+  ggtitle("Career Transition")
+
+```
+
+### Bar Graph (Var2)
+
+```{r}
+#Univariate Graph (categorical variable)
+df %>%
+  ggplot(aes(x = A5AETHN1)) + geom_bar()+
+  ggtitle("Ethnic Origin")
+```
+
+### Bar Graph (3)
+
+```{r}
+#Univariate Graph (categorical variable)
+df %>%
+  ggplot(aes(x =CDCHPHYS )) + geom_bar()+
+  ggtitle("End of career")
+```
+
+### Career Transition
+
+```{r}
+#Univariate Graph (categorical variable)
+df %>%
+  ggplot(aes(x = DSNEWCRR)) + geom_bar()+
+  ggtitle("Career Transition") + 
+  xlab("Stop Dancing because of New Career") +
+  ylab("Count of People") +
+  theme_apa() #from papaja package
+
+```
+
+```{r}
+df %>%
+  ggplot(aes(x = CDCHPHYS)) +
+  geom_bar(binwidth = 5, fill = "lightblue", color = "black") +  # Adds binwidth for better visualization
+  ggtitle("End of Career") +
+  xlab("End Career") +
+  ylab("Count of Individuals") +
+  theme_minimal()
+```
+
+```{r}
+df %>%
+  ggplot(aes(x = DSNEWCRR)) +
+  geom_bar(binwidth = 5, fill = "lightblue", color = "black") +  # Adds binwidth for better visualization
+  ggtitle("Stopped Dancing") +
+  xlab("Not dancing") +
+  ylab("Count of Individuals") +
+  theme_minimal()
+```
+
+### ✅Bivariate
+
+### Figure 1 Histogram
+
+```{r}
+# univariate graph ( categorial variable)
+df%>%
+  filter(!is.na(DSNEWCRR)) %>%
+  ggplot(aes(x=DSNEWCRR))+
+  geom_bar()+
+  ggtitle("career transition") +
+  facet_wrap(~CDCHPHYS)
+
+```
+
+```{r}
+#univariate graph (categorical variable)
+df %>%
+  ggplot(aes(x=DSNEWCRR)) +
+  geom_histogram(binwidth = 5,fill ="lightblue", color = "black") +
+  ggtitle("Career Transition") +
+  theme_apa()
+```
+
+```{r}
+ggplot(df) +
+  stat_summary(aes(x=end career, 
+                   y=people),
+               fun.y=mean, 
+               geom="bar")+
+  ggtitle("career transition")
+```
