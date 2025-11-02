@@ -132,10 +132,19 @@ df %>%
 ```
 
 ```{r}
-ggplot(df) +
+  ggplot(df) +
   stat_summary(aes(x=end career, 
                    y=people),
                fun.y=mean, 
                geom="bar")+
   ggtitle("career transition")
+```
+
+```{r}
+ggplot(data=df) +
+  stat_summary(aes(x=Career,
+                   y=Individuals), 
+               fun.y=mean, 
+               geom="bar")
+
 ```
