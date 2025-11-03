@@ -32,7 +32,7 @@ head(df)
 freq(as.ordered(df$CDCHPHYS), plot=FALSE)
 ```
 
-### Stopped dancing for new career
+### Stopped Dancing for New Career
 
 ```{r}
 freq(as.ordered(df$DSNEWCRR) , plot=FALSE)
@@ -126,25 +126,93 @@ df%>%
 #univariate graph (categorical variable)
 df %>%
   ggplot(aes(x=DSNEWCRR)) +
-  geom_histogram(binwidth = 5,fill ="lightblue", color = "black") +
+  barplot(binwidth = 5,fill ="lightblue", color = "black") +
   ggtitle("Career Transition") +
   theme_apa()
 ```
 
+### ✅ Bar Graph
+
 ```{r}
   ggplot(df) +
-  stat_summary(aes(x=end career, 
-                   y=people),
+  stat_summary(aes(x=CDCHPHYS, 
+                   y=DSNEWCRR),
                fun.y=mean, 
                geom="bar")+
-  ggtitle("career transition")
+  ggtitle("Career Transition")
 ```
+
+### Bar Graph #2
 
 ```{r}
 ggplot(data=df) +
-  stat_summary(aes(x=Career,
-                   y=Individuals), 
+  stat_summary(aes(x=CDCHPHYS,
+                   y=DSNEWCRR), 
                fun.y=mean, 
                geom="bar")
+
+```
+
+### BoxPlots 
+
+```{r}
+## boxplots
+ggplot(data=df) +
+  geom_boxplot(aes(x=CDCHPHYS,
+                   y=DSNEWCRR)) + 
+  ggtitle("Career Transition")
+```
+
+### Density Plots 
+
+```{r}
+## density plots
+ggplot(data=df) +
+  geom_density(aes(x=CDCHPHYS,
+                   color=DSNEWCRR)) + 
+  ggtitle("Career Transition")
+
+```
+
+```{r}
+# ==== quantitative explanatory, quantitative response ====
+ggplot(data=df) +
+  geom_point(aes(x=CDCHPHYS, 
+                 y=DSNEWCRR)) +
+  geom_smooth(aes(x=CDCHPHYS, 
+                  y=DSNEWCRR), 
+              method="lm")
+```
+
+### 3 Variable graph 
+
+```{r}
+ggplot(data=df) +
+  geom_point(aes(x=CDCHPHYS, 
+                 y=DSNEWCRR,
+                 color=A5AETHN1)) +
+  geom_smooth(aes(x=CDCHPHYS, 
+                  y=DSNEWCRR,
+                  color=A5AETHN1), 
+              method="lm")
+```
+
+```{r}
+# ==== categorical explanatory, categorical response, categorical 3rd variable ====
+tab1 <- ftable(df$CDCHPHYS,
+               df$DSNEWCRR,
+               df$A5AETHN1)
+tab1
+tab1_colProp <- prop.table(tab1, 2)
+tab1_colProp
+
+```
+
+```{r}
+# ==== categorical explanatory, quantitative response, categorical 3rd variable ====
+ftable(by(df$CDCHPHYS,
+          list(df$DSNEWCRR, 
+               df$A5AETHN1),
+          mean, na.rm = TRUE))
 
 ```
