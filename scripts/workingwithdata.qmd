@@ -11,6 +11,8 @@ library(haven)
 library(descr)
 library(haven)
 library(labelled)
+library(apaThemes)
+library(basicstatsbook)
 ```
 
 ### ✅Data Management
@@ -26,13 +28,13 @@ head(df)
 
 ### ✅Frequency Tables
 
-### End of career challenges
+### End of career challenges(Physical) 
 
 ```{r}
 freq(as.ordered(df$CDCHPHYS), plot=FALSE)
 ```
 
-### Stopped Dancing for New Career
+### Stopped Dancing due to New Career  
 
 ```{r}
 freq(as.ordered(df$DSNEWCRR) , plot=FALSE)
@@ -42,6 +44,12 @@ freq(as.ordered(df$DSNEWCRR) , plot=FALSE)
 
 ```{r}
 freq(as.ordered(df$A5AETHN1) , plot=FALSE)
+```
+
+### Stopped dancing because of health
+
+```{r}
+freq(as.ordered(df$WSHEALTH), plot =FALSE)
 ```
 
 ### ✅Univariate Data Visualizations
@@ -109,7 +117,7 @@ df %>%
 
 ### ✅Bivariate
 
-### Figure 1 Histogram
+### Figure 1
 
 ```{r}
 # univariate graph ( categorial variable)
@@ -123,96 +131,39 @@ df%>%
 ```
 
 ```{r}
-#univariate graph (categorical variable)
+
+# Univariate graph (categorical variable)
+library(ggplot2)
 df %>%
-  ggplot(aes(x=DSNEWCRR)) +
-  barplot(binwidth = 5,fill ="lightblue", color = "black") +
-  ggtitle("Career Transition") +
+  ggplot(aes(x = CDCHPHYS)) +
+  geom_bar(fill = "lightblue", color = "black") +
+  ggtitle("Faced Challenges") +
   theme_apa()
-```
 
-### ✅ Bar Graph
-
-```{r}
-  ggplot(df) +
-  stat_summary(aes(x=CDCHPHYS, 
-                   y=DSNEWCRR),
-               fun.y=mean, 
-               geom="bar")+
-  ggtitle("Career Transition")
-```
-
-### Bar Graph #2
-
-```{r}
-ggplot(data=df) +
-  stat_summary(aes(x=CDCHPHYS,
-                   y=DSNEWCRR), 
-               fun.y=mean, 
-               geom="bar")
 
 ```
 
-### BoxPlots 
+### Figure 2
 
 ```{r}
-## boxplots
-ggplot(data=df) +
-  geom_boxplot(aes(x=CDCHPHYS,
-                   y=DSNEWCRR)) + 
-  ggtitle("Career Transition")
-```
-
-### Density Plots 
-
-```{r}
-## density plots
-ggplot(data=df) +
-  geom_density(aes(x=CDCHPHYS,
-                   color=DSNEWCRR)) + 
-  ggtitle("Career Transition")
-
+    
+   df%>%
+     filter(!is.na(CDCHPHYS)) %>%
+  ggplot(aes(x=CDCHPHYS))+
+  geom_bar()+
+  ggtitle("career transition") +
+  facet_wrap(~DSNEWCRR)
+    
+  
 ```
 
 ```{r}
-# ==== quantitative explanatory, quantitative response ====
-ggplot(data=df) +
-  geom_point(aes(x=CDCHPHYS, 
-                 y=DSNEWCRR)) +
-  geom_smooth(aes(x=CDCHPHYS, 
-                  y=DSNEWCRR), 
-              method="lm")
-```
-
-### 3 Variable graph 
-
-```{r}
-ggplot(data=df) +
-  geom_point(aes(x=CDCHPHYS, 
-                 y=DSNEWCRR,
-                 color=A5AETHN1)) +
-  geom_smooth(aes(x=CDCHPHYS, 
-                  y=DSNEWCRR,
-                  color=A5AETHN1), 
-              method="lm")
-```
-
-```{r}
-# ==== categorical explanatory, categorical response, categorical 3rd variable ====
-tab1 <- ftable(df$CDCHPHYS,
-               df$DSNEWCRR,
-               df$A5AETHN1)
-tab1
-tab1_colProp <- prop.table(tab1, 2)
-tab1_colProp
-
-```
-
-```{r}
-# ==== categorical explanatory, quantitative response, categorical 3rd variable ====
-ftable(by(df$CDCHPHYS,
-          list(df$DSNEWCRR, 
-               df$A5AETHN1),
-          mean, na.rm = TRUE))
-
+# Univariate graph (categorical variable)
+library(ggplot2)
+df %>%
+  ggplot(aes(x = DSNEWCRR)) +
+  geom_bar(fill = "lightblue", color = "black") +
+  ggtitle("Stopped Dancing for New Career") +
+  theme_apa()
+ 
 ```
