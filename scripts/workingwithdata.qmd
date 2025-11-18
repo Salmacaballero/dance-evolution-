@@ -19,7 +19,7 @@ library(basicstatsbook)
 
 At the start of my analysis, I loaded all the necessary libraries. After reviewing the dataset and its coodebook, I selected the variables that would help me answer my research question.
 
-The variables that I selected were "End of career challenges" (physically) range from 0-30 (CDCHPHYS) and "Stopped Dancing for New Career" ( DSNEWCRR). I chose CDCHPHYS as it measures the physical challenges that dancers face at the end of their preformance careers, such as injuries or accidents. The DSNEWCRR variable records if dancers quit preforming to seek a different career. With these two variables I am able to address my research question and analyze the relationship between physical challenges and career transitions.
+The variables that I selected were **“End of Career Challenges (Physically)”**, ranging from 0–30 (CDCHPHYS), and **“Stopped Dancing for New Career”** (DSNEWCRR). I chose CDCHPHYS because it measures the physical challenges that dancers face at the end of their performance careers, such as injuries or accidents. The DSNEWCRR variable records whether dancers stopped performing to pursue a different career. With these two variables, I am able to address my research question and analyze the relationship between physical challenges and career transitions
 
 ### Sort of data
 
